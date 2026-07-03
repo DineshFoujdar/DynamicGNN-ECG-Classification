@@ -1,4 +1,4 @@
-# TGLLNet: Task-Guided Lead Correlation Learning for Multi-label ECG Classification
+# Dynamic-GNN: Task-Guided Lead Correlation Learning for Multi-label ECG Classification
 
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-1.9+-red.svg)](https://pytorch.org/)
