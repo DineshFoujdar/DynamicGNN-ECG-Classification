@@ -1,0 +1,26 @@
+# Core dependencies
+torch>=1.9.0
+torchvision>=0.10.0
+numpy>=1.19.0
+scipy>=1.5.0
+pandas>=1.2.0
+scikit-learn>=0.24.0
+matplotlib>=3.3.0
+seaborn>=0.11.0
+tqdm>=4.60.0
+
+# Signal processing
+PyWavelets>=1.1.0
+wfdb>=4.0.0
+
+# Deep learning extras
+torchsummary>=1.5.1
+tensorboard>=2.5.0
+
+# Jupyter notebook
+jupyter>=1.0.0
+ipykernel>=6.0.0
+notebook>=6.0.0
+
+# Utilities
+pyyaml>=5.4.0
