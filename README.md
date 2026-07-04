@@ -5,22 +5,19 @@
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![arXiv](https://img.shields.io/badge/arXiv-xxxx.xxxxx-b31b1b.svg)](https://arxiv.org/)
 
-<p align="center">
-  <img src="results/model_architecture.png" alt="Dynamic GNN Architecture" width="800"/>
-</p>
 
-📌 Overview
+### Overview
 Dynamic Graph Neural Network (DGNN) for Multi-label ECG Classification is a deep learning framework that dynamically learns inter-lead relationships through adaptive graph structure learning. Unlike traditional methods that rely on fixed anatomical connections, our model constructs time-varying, task-guided lead correlation graphs that capture the complex and dynamic spatial-functional relationships between 12 ECG leads.
 
-Key Features
-. Dynamic Graph Structure Learning - Learns time-adaptive adjacency matrices for each temporal window
-. Spatiotemporal Feature Extraction - Combines multi-scale temporal features with dynamic spatial (lead) relationships
-. Multi-label Classification - Supports 5 super-classes (NORM, MI, STTC, CD, HYP)
-. Graph Neural Network - Uses GCN with independently learnable, window-specific adjacency matrices
-. Wavelet Preprocessing - Denoises ECG signals while preserving QRS complexes using adaptive thresholding
-. Interpretability - Provides insights into lead importance, graph sparsity, and scale attention
+Key Features:
+- Dynamic Graph Structure Learning : Learns time-adaptive adjacency matrices for each temporal window
+- Spatiotemporal Feature Extraction : Combines multi-scale temporal features with dynamic spatial (lead) relationships
+- Multi-label Classification : Supports 5 super-classes (NORM, MI, STTC, CD, HYP)
+- Graph Neural Network : Uses GCN with independently learnable, window-specific adjacency matrices
+- Wavelet Preprocessing : Denoises ECG signals while preserving QRS complexes using adaptive thresholding
+- Interpretability : Provides insights into lead importance, graph sparsity, and scale attention
 
-## 🧠 Motivation & Problem Statement
+##  Motivation & Problem Statement
 
 Cardiovascular diseases (CVDs) are the leading cause of death globally, responsible for approximately 17.9 million deaths annually. Early and accurate diagnosis using ECG signals is crucial for effective treatment. However, traditional ECG analysis methods treat leads as independent channels or rely on fixed spatial adjacency graphs, failing to capture the **complex, task-dependent relationships** between leads.
 
@@ -30,14 +27,17 @@ Cardiovascular diseases (CVDs) are the leading cause of death globally, responsi
 3. **Multi-label Ignorance**: Many methods focus on single-label classification
 
 ### Our Solution
-TGLLNet learns task-guided lead correlations dynamically, improving multi-label ECG classification performance by:
-- Automatically discovering lead relationships relevant to each diagnostic task
-- Capturing both spatial and temporal patterns simultaneously
-- Handling multiple co-occurring conditions effectively
+Our Dynamic Graph Neural Network addresses these limitations by:
+- Learning time-adaptive lead correlations dynamically for each temporal window
+- Capturing both spatial and temporal patterns simultaneously through spatiotemporal processing
+- Handling multiple co-occurring conditions effectively with multi-label classification
+- Providing interpretability through learned graph structures and attention mechanisms
+
+
 
 ---
 
-## 📊 Dataset: PTB-XL
+##  Dataset: PTB-XL
 
 The **PTB-XL** dataset is a comprehensive 12-lead ECG dataset containing 21,837 clinical ECG recordings from 18,885 patients.
 
@@ -67,47 +67,11 @@ The **PTB-XL** dataset is a comprehensive 12-lead ECG dataset containing 21,837 
 
 ---
 
-## 🏗️ Model Architecture
+##  Model Architecture
 
 <p align="center">
-  <img src="results/model_parameters.png" alt="Model Parameters" width="600"/>
+  <img src="results/Model_Architecture.png" alt="Dynamic GNN Architecture" width="800"/>
 </p>
-
-### Architecture Overview
-
-┌─────────────────────────────────────────────────────────────────┐
-│ TGLLNet Architecture │
-├─────────────────────────────────────────────────────────────────┤
-│ │
-│ Input: ECG Signal (B, 12, 1000) │
-│ │ │
-│ ▼ Module 1: Multi-Scale Temporal Feature Extraction │
-│ ├─ Wavelet Preprocessing (db4, level=5) │
-│ ├─ Multi-Scale Conv (K=3, 7, 15, 31) │
-│ └─ Attention-based Feature Fusion │
-│ Output: (B, 12, 64) │
-│ │ │
-│ ▼ Module 2: Dynamic Graph Structure Learning │
-│ ├─ 5 Time Windows │
-│ ├─ Learnable Window Projections │
-│ ├─ Smoothness Regularization │
-│ └─ Sparsity Regularization │
-│ Output: 5 × (B, 12, 12) + reg_loss │
-│ │ │
-│ ▼ Module 3: Spatiotemporal Graph Convolution │
-│ ├─ 3-layer GCN (64→128→128→32) │
-│ ├─ Window-specific Processing │
-│ └─ Residual Connections │
-│ Output: (B, 12, 32) │
-│ │ │
-│ ▼ Module 4: Classification + Interpretability │
-│ ├─ Readout: Mean Pooling (B, 12, 32) → (B, 32) │
-│ ├─ MLP Classifier: 32→128→64→5 │
-│ └─ Interpretability Methods │
-│ Output: (B, 5) Logits │
-│ │
-└─────────────────────────────────────────────────────────────────┘
-
 
 ### Parameter Distribution
 
@@ -125,7 +89,7 @@ The **PTB-XL** dataset is a comprehensive 12-lead ECG dataset containing 21,837 
 
 ---
 
-## 📈 Results
+##  Results
 
 ### Performance on Super-Diagnostic Task
 
