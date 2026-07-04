@@ -70,7 +70,7 @@ The **PTB-XL** dataset is a comprehensive 12-lead ECG dataset containing 21,837 
 ##  Model Architecture
 
 <p align="center">
-  <img src="results/Model_Architecture.png" alt="Dynamic GNN Architecture" width="800"/>
+  <img src="results/model_architecture_final.png" alt="Dynamic GNN Architecture" width="800"/>
 </p>
 
 ### Parameter Distribution
@@ -143,7 +143,7 @@ The **PTB-XL** dataset is a comprehensive 12-lead ECG dataset containing 21,837 
 ## 🛠️ Installation & Usage
 
 ### Requirements
-```bash
+```
 Python >= 3.8
 PyTorch >= 1.9.0
 NumPy >= 1.19.0
@@ -152,12 +152,12 @@ Matplotlib >= 3.3.0
 tqdm >= 4.60.0
 wfdb >= 4.0.0
 PyWavelets >= 1.1.0
-
-Installation
-bash
+```
+### Installation
+```
 # Clone the repository
-git clone https://github.com/yourusername/TGLLNet-ECG-Classification.git
-cd TGLLNet-ECG-Classification
+git clone https://github.com/DineshFoujdar/DynamicGNN-ECG-Classification.git
+cd DynamicGNN-ECG-Classification
 
 # Install dependencies
 pip install -r requirements.txt
@@ -165,29 +165,31 @@ pip install -r requirements.txt
 # Create necessary directories
 mkdir -p data checkpoints results notebooks
 Data Preparation
-bash
+
 # Download PTB-XL dataset from PhysioNet
 # Place in ../data/ptb_xl/ directory
 
 # Run preprocessing
 python preprocess_data.py
 Training
-bash
+
 # Train the model
 python train.py
 
 # Monitor training
 tensorboard --logdir runs/
 Evaluation
-bash
+
 # Evaluate on test set
 python evaluate.py --model checkpoints/best_model.pth
 
 # Generate visualizations
 python visualize_results.py
-📁 Project Structure
-text
-TGLLNet-ECG-Classification/
+```
+
+### Project Structure
+```
+DynamicGNN-ECG-Classification/
 ├── README.md                    # Project documentation
 ├── requirements.txt             # Dependencies
 ├── config.py                    # Configuration settings
@@ -204,7 +206,7 @@ TGLLNet-ECG-Classification/
 │
 ├── models/
 │   ├── __init__.py
-│   └── dynamic_ecg_model.py     # Complete TGLLNet model
+│   └── dynamic_ecg_model.py     # Complete DynamicGNN model
 │
 ├── data/
 │   ├── ptbxl_train.npz          # Training data
@@ -242,9 +244,12 @@ TGLLNet-ECG-Classification/
     ├── training_history.png
     ├── error_analysis.png
     └── interpretability.png
-🔬 Methodology
-1. Multi-Scale Temporal Feature Extraction
-Wavelet Preprocessing:
+```
+## 🔬 Methodology
+
+### 1. Multi-Scale Temporal Feature Extraction
+```
+1. Wavelet Preprocessing:
 
 Daubechies-4 wavelet decomposition (level=5)
 
@@ -252,7 +257,7 @@ Adaptive thresholding using MAD (Median Absolute Deviation)
 
 Preserves QRS complexes while removing noise
 
-Multi-Scale Convolution:
+2. Multi-Scale Convolution:
 
 4 parallel convolutions: K=3, 7, 15, 31
 
@@ -264,15 +269,16 @@ K=15: Slow patterns (rhythm)
 
 K=31: Very slow patterns (long-term trends)
 
-Feature Fusion:
+3. Feature Fusion:
 
 Global Average Pooling per scale
 
 Attention-based weighted fusion
 
 Output: (B, 12, 64) per-lead features
-
-2. Dynamic Graph Structure Learning
+```
+### 2. Dynamic Graph Structure Learning
+```
 Key Innovation: Learns time-adaptive adjacency matrices for each window
 
 5 time windows with learnable projections
@@ -282,8 +288,9 @@ Each window: (B, 12, 64) → (B, 12, 12) adjacency matrix
 Smoothness regularization: encourages connected leads to have similar features
 
 Sparsity regularization: only keeps important connections
-
-3. Spatiotemporal Graph Convolution
+```
+### 3. Spatiotemporal Graph Convolution
+```
 3-layer GCN: 64 → 128 → 128 → 32
 
 Normalized adjacency: D^(-1/2) * A * D^(-1/2)
@@ -291,38 +298,27 @@ Normalized adjacency: D^(-1/2) * A * D^(-1/2)
 Window-specific feature projections
 
 Residual connections for gradient flow
-
-4. Classification
+```
+### 4. Classification
+```
 Readout: Mean pooling across leads
 
 MLP: 32 → 128 → 64 → 5 (multi-label)
 
 Loss: BCEWithLogitsLoss + Graph regularization
-
-📊 Visualization Examples
+```
+### Visualization Examples
 ECG Signal Distribution
 <p align="center"> <img src="results/signal_distribution.png" alt="Signal Distribution" width="600"/> </p>
 Lead Correlation Matrix
 <p align="center"> <img src="results/lead_correlations.png" alt="Lead Correlations" width="500"/> </p>
-Learned Graph Structure
-<p align="center"> <img src="results/learned_graph.png" alt="Learned Graph" width="500"/> </p>
-📚 Literature Review
-Related Work
-Model	AUC	F1	Key Feature
-TGLLNet (Ours)	0.9308	0.7800	Dynamic graph learning
-InceptionTime	0.9206	0.7226	Multi-scale
-ResNet1D	0.9188	0.7023	Residual connections
-MVMSNet	0.9208	0.7234	Multi-view
-LSTM	0.8612	0.6664	Sequential modeling
-BiLSTM	0.9135	0.7082	Bidirectional
-XResNet1D	0.9188	0.7023	Extended ResNet
-MobileNetV3	0.9042	0.6951	Lightweight
-ViT	0.7653	0.5703	Vision Transformer
-MRMNet	0.9194	0.7205	Multi-resolution
-🤝 Contributing
-We welcome contributions! Please follow these steps:
+Training Metrics
+<p align="center"> <img src="results/training_metrics.png" alt="Learned Graph" width="500"/> </p>
 
-Fork the repository
+
+### Contributing
+We welcome contributions! Please follow these steps:
+```
 
 Create a feature branch (git checkout -b feature/AmazingFeature)
 
@@ -331,28 +327,26 @@ Commit your changes (git commit -m 'Add some AmazingFeature')
 Push to the branch (git push origin feature/AmazingFeature)
 
 Open a Pull Request
-
-📝 License
+```
+### License
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-📧 Contact & Acknowledgments
+### Contact & Acknowledgments
 Author
-Your Name
+Dinesh Foujdar
 
-Email: your.email@university.edu
+Email: m23ma1006@iitj.ac.in
 
-GitHub: github.com/yourusername
+GitHub: github.com/DineshFoujdar
 
-LinkedIn: linkedin.com/in/yourusername
+LinkedIn: www.linkedin.com/in/dinesh-chand-foujdar-b762182a5
 
-Acknowledgments
-Dr. Yanqing Su's Research Group, University of Oklahoma
 
-PhysioNet for the PTB-XL dataset
+### PhysioNet for the PTB-XL dataset
 
 IEEE Internet of Things Journal for publishing the original TGLLNet paper
 
-📖 References
+## References
 Yuan, X., Wang, W., Chen, J., et al. "Enhancing Multilabel ECG Classification via Task-Guided Lead Correlations in Internet of Medical Things." IEEE Internet of Things Journal, 2025.
 
 Wagner, P., Strodthoff, N., Bousseljot, R., et al. "PTB-XL, a large publicly available electrocardiography dataset." Scientific Data, 2020.
@@ -363,17 +357,8 @@ Kipf, T. N., & Welling, M. "Semi-Supervised Classification with Graph Convolutio
 
 Vaswani, A., et al. "Attention Is All You Need." NeurIPS, 2017.
 
-⭐ Citation
-If you find this project useful, please cite:
 
-bibtex
-@article{yuan2025enhancing,
-  title={Enhancing Multilabel ECG Classification via Task-Guided Lead Correlations in Internet of Medical Things},
-  author={Yuan, Xiaoyan and Wang, Wei and Chen, Jun and et al.},
-  journal={IEEE Internet of Things Journal},
-  year={2025}
-}
-📊 Badges
+### Badges
 https://img.shields.io/badge/Python-3.8+-blue.svg
 https://img.shields.io/badge/PyTorch-1.9+-red.svg
 https://img.shields.io/badge/License-MIT-green.svg
@@ -382,79 +367,3 @@ https://img.shields.io/badge/contributions-welcome-brightgreen.svg
 
 ⭐ If you find this project useful, please consider giving it a star!
 
-text
-
----
-
-## 📁 Final Project Structure
-TGLLNet-ECG-Classification/
-├── README.md # ✅ Complete documentation
-├── requirements.txt # ✅ Dependencies
-├── config.py # ✅ Configuration
-├── train.py # ✅ Training script
-├── evaluate.py # ✅ Evaluation script
-├── preprocess_data.py # ✅ Data preprocessing
-├── modules/
-│ ├── init.py
-│ ├── module1_features.py # ✅ Multi-scale features
-│ ├── module2_graph.py # ✅ Dynamic graph learning
-│ ├── module3_gcn.py # ✅ Spatiotemporal GCN
-│ └── module4_classifier.py # ✅ Classification
-├── models/
-│ ├── init.py
-│ └── dynamic_ecg_model.py # ✅ Complete model
-├── data/
-│ ├── ptbxl_train.npz # Training data
-│ ├── ptbxl_val.npz # Validation data
-│ └── ptbxl_test.npz # Test data
-├── checkpoints/
-│ └── best_model.pth # Best model weights
-├── notebooks/
-│ ├── 01_data_exploration.ipynb # ✅ EDA
-│ ├── 02_model_analysis.ipynb # ✅ Model analysis
-│ └── 03_results_visualization.ipynb # ✅ Results
-└── results/
-├── signal_distribution.png
-├── sample_ecgs.png
-├── lead_correlations.png
-├── qrs_detection.png
-├── class_distribution.png
-├── multi_label_distribution.png
-├── class_cooccurrence.png
-├── class_lead_means.png
-├── model_parameters.png
-├── module1_attention.png
-├── module2_adjacency.png
-├── module3_feature_evolution.png
-├── module4_predictions.png
-├── learned_graph.png
-├── training_metrics.png
-├── confusion_matrix.png
-├── roc_curves.png
-├── precision_recall_curves.png
-├── per_class_performance.png
-├── prediction_distributions.png
-├── training_history.png
-├── error_analysis.png
-└── interpretability.png
-
-text
-
----
-
-## 🎯 Summary
-
-| Component | Status |
-|-----------|--------|
-| **README.md** | ✅ Complete |
-| **requirements.txt** | ✅ Complete |
-| **config.py** | ✅ Complete |
-| **preprocess_data.py** | ✅ Complete |
-| **modules/** | ✅ Complete |
-| **models/** | ✅ Complete |
-| **train.py** | ✅ Complete |
-| **evaluate.py** | ✅ Complete |
-| **notebooks/** | ✅ Complete |
-| **results/** | ✅ Complete |
-
-**🎉 Project Complete! Ready for GitHub!**
