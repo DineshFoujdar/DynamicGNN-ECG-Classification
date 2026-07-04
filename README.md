@@ -6,21 +6,19 @@
 [![arXiv](https://img.shields.io/badge/arXiv-xxxx.xxxxx-b31b1b.svg)](https://arxiv.org/)
 
 <p align="center">
-  <img src="results/model_architecture.png" alt="TGLLNet Architecture" width="800"/>
+  <img src="results/model_architecture.png" alt="Dynamic GNN Architecture" width="800"/>
 </p>
 
-## 📌 Overview
+📌 Overview
+Dynamic Graph Neural Network (DGNN) for Multi-label ECG Classification is a deep learning framework that dynamically learns inter-lead relationships through adaptive graph structure learning. Unlike traditional methods that rely on fixed anatomical connections, our model constructs time-varying, task-guided lead correlation graphs that capture the complex and dynamic spatial-functional relationships between 12 ECG leads.
 
-**TGLLNet** is a deep learning framework for **multi-label ECG classification** that automatically learns inter-lead relationships through task-guided graph structure learning. The model dynamically constructs task-guided lead correlations, capturing complex spatial and functional relationships between 12 ECG leads without relying on predefined anatomical connections.
-
-### Key Features
-- ✅ **Task-Guided Lead Correlation Learning** - Automatically learns lead connectivity patterns
-- ✅ **Spatiotemporal Feature Extraction** - Combines temporal context with spatial (lead) relationships
-- ✅ **Multi-label Classification** - Supports 5 super-classes (NORM, MI, STTC, CD, HYP)
-- ✅ **Graph Neural Network** - Uses GCN with independently learnable adjacency matrices
-- ✅ **Wavelet Preprocessing** - Denoises ECG signals while preserving QRS complexes
-
----
+Key Features
+. Dynamic Graph Structure Learning - Learns time-adaptive adjacency matrices for each temporal window
+. Spatiotemporal Feature Extraction - Combines multi-scale temporal features with dynamic spatial (lead) relationships
+. Multi-label Classification - Supports 5 super-classes (NORM, MI, STTC, CD, HYP)
+. Graph Neural Network - Uses GCN with independently learnable, window-specific adjacency matrices
+. Wavelet Preprocessing - Denoises ECG signals while preserving QRS complexes using adaptive thresholding
+. Interpretability - Provides insights into lead importance, graph sparsity, and scale attention
 
 ## 🧠 Motivation & Problem Statement
 
