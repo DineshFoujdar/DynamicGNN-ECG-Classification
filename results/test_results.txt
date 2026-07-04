@@ -1,0 +1,15 @@
+TEST RESULTS
+============================================================
+
+Test Loss: 0.3765
+Macro F1: 0.5920
+ROC-AUC: 0.8370
+Hamming Accuracy: 0.7867
+Subset Accuracy: 0.4193
+
+Per-Class F1:
+  NORM: 0.8215
+  MI: 0.5699
+  STTC: 0.5246
+  CD: 0.5465
+  HYP: 0.4975
